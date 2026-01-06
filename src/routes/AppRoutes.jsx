@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
+import DashBoard from "../pages/DashBoard";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/profile", element: <Profile /> },
+      { path: "/dashboard", element: <DashBoard /> },
       // Add future routes here like Dashboard, Profile, etc.
     ],
   },
