@@ -1,6 +1,8 @@
 import React from "react";
 import SkillCard from "../components/skillCard";
 import skillsData from "../utils/skillsData";
+import Planner from "../components/Planner";
+
 
 
 const DashBoard = () => {
@@ -14,6 +16,8 @@ const DashBoard = () => {
                     <SkillCard key={skill.id} skill={skill} />
                 ))}
             </div>
+            
+            <Planner />
         </div>
         
     );
