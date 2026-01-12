@@ -2,7 +2,7 @@ import React from "react";
 import SkillCard from "../components/skillCard";
 import skillsData from "../utils/skillsData";
 import Planner from "../components/Planner";
-
+import Recommendation from "../components/Recommendation";
 
 
 const DashBoard = () => {
@@ -16,8 +16,8 @@ const DashBoard = () => {
                     <SkillCard key={skill.id} skill={skill} />
                 ))}
             </div>
-            
             <Planner />
+            <Recommendation skills={skillsData} />
         </div>
         
     );
