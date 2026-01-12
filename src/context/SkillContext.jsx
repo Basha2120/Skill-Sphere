@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const SkillContext = createContext();
 
@@ -18,10 +18,34 @@ const initialSkills = [
 ];
 
 export const SkillProvider = ({ children }) => {
-  const [skills, setSkills] = useState(initialSkills);
+  const [skills, setSkills] = useState(() => {
+    const stored = localStorage.getItem("skills");
+    return stored ? JSON.parse(stored) : initialSkills;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("skills", JSON.stringify(skills));
+  }, [skills]);
+
+  const toggleTopic = (skillId, topicId) => {
+    setSkills((prevSkills) =>
+      prevSkills.map((skill) =>
+        skill.id === skillId
+          ? {
+              ...skill,
+              topics: skill.topics.map((topic) =>
+                topic.id === topicId
+                  ? { ...topic, completed: !topic.completed }
+                  : topic
+              ),
+            }
+          : skill
+      )
+    );
+  };
 
   return (
-    <SkillContext.Provider value={{ skills }}>
+    <SkillContext.Provider value={{ skills, toggleTopic }}>
       {children}
     </SkillContext.Provider>
   );
