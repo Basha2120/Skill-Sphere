@@ -4,6 +4,10 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import DashBoard from "../pages/DashBoard";
+import SkillList from "../pages/skillList";
+import SkillDetail from "../pages/SkillDetail";
+
+
 
 const router = createBrowserRouter([
   {
@@ -13,6 +17,8 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/profile", element: <Profile /> },
       { path: "/dashboard", element: <DashBoard /> },
+      { path: "/skills", element: <SkillList /> },
+      { path: "/skills/:id", element: <SkillDetail /> },
       // Add future routes here like Dashboard, Profile, etc.
     ],
   },

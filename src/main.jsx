@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import './index.css'; // ✅ Tailwind import
+import App from "./App";
+import "./index.css";
+import { SkillProvider } from "./context/skillContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <SkillProvider>
+      <App />
+    </SkillProvider>
   </React.StrictMode>
 );
