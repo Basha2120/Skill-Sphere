@@ -39,6 +39,7 @@ date-aware planner.
 - Clean component architecture
 
 ---
-👤 Author
-Basharathullah M
+**👤 Author**
+**Basharathullah M**
+
 Final Year CSE Student | Frontend & Java Developer
