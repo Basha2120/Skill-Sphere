@@ -38,8 +38,20 @@ date-aware planner.
 - Responsive UI with Tailwind CSS
 - Clean component architecture
 
----
+## Getting Started
+---bash
+npm install
+npm run dev
+
+## Future Enhancements
+
+- Backend integration (Spring Boot / Firebase)
+- Authentication and user profiles
+- AI-powered learning recommendations
+- Calendar-based task visualization
+
 **👤 Author**
-**Basharathullah M**
+
+Basharathullah M
 
 Final Year CSE Student | Frontend & Java Developer

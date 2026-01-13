@@ -44,7 +44,7 @@ const Planner = () => {
             {todaysTasks.map((task) => (
               <div
                 key={task.id}
-                className="flex justify-between items-center bg-blue-200 p-4 rounded-lg shadow"
+                className="flex justify-between items-center bg-blue-900 p-4 rounded-lg shadow"
               >
                 <label className="flex items-center gap-3">
                   <input
@@ -55,7 +55,7 @@ const Planner = () => {
                   />
                   <span
                     className={
-                      task.completed ? "line-through text-gray-500" : ""
+                      task.completed ? "line-through text-gray-500" : "text-white font-semibold"
                     }
                   >
                     {task.title}
@@ -64,7 +64,7 @@ const Planner = () => {
 
                 <button
                   onClick={() => deleteTask(task.id)}
-                  className="text-1xl text-red-600 font-bold hover:text-red-900 text-sm"
+                  className="text-1xl text-white bg-red-600 rounded-lg font-bold p-1 hover:text-red-200 text-sm"
                 >
                   Delete
                 </button>
@@ -168,7 +168,7 @@ const Planner = () => {
                         setEditingTaskId(null);
                         setEditedTitle("");
                       }}
-                      className="text-green-600 hover:underline"
+                      className="text-green-600 font-semibold hover:underline p-4"
                     >
                       Save
                     </button>
@@ -178,7 +178,7 @@ const Planner = () => {
                         setEditingTaskId(null);
                         setEditedTitle("");
                       }}
-                      className="text-gray-500 hover:underline"
+                      className="text-gray-600 font-semibold hover:underline "
                     >
                       Cancel
                     </button>
