@@ -4,7 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import DashBoard from "../pages/DashBoard";
-import SkillList from "../pages/skillList";
+import SkillList from "../pages/SkillList";
 import SkillDetail from "../pages/SkillDetail";
 import AddSkill from "../pages/AddSkill";
 import EditSkill from "../pages/EditSkill";
