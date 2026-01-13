@@ -6,7 +6,8 @@ import Profile from "../pages/Profile";
 import DashBoard from "../pages/DashBoard";
 import SkillList from "../pages/skillList";
 import SkillDetail from "../pages/SkillDetail";
-
+import AddSkill from "../pages/AddSkill";
+import EditSkill from "../pages/EditSkill";
 
 
 const router = createBrowserRouter([
@@ -19,6 +20,8 @@ const router = createBrowserRouter([
       { path: "/dashboard", element: <DashBoard /> },
       { path: "/skills", element: <SkillList /> },
       { path: "/skills/:id", element: <SkillDetail /> },
+      { path: "/skills/add", element: <AddSkill /> },
+      { path: "/skills/edit/:id", element: <EditSkill /> },
       // Add future routes here like Dashboard, Profile, etc.
     ],
   },
