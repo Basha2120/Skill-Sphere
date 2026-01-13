@@ -8,7 +8,7 @@ const SkillList = () => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">My Skills 📚</h2>
+        <h2 className="text-3xl font-bold mb-6">My Skills 📚</h2>
 
         <Link
           to="/skills/add"
@@ -52,7 +52,7 @@ const SkillList = () => {
                 <div className="flex items-center gap-4 text-sm">
                   <Link
                     to={`/skills/edit/${skill.id}`}
-                    className="text-green-600 hover:underline"
+                    className="text-green-600 font-bold hover:underline"
                   >
                     Edit
                   </Link>
@@ -66,7 +66,7 @@ const SkillList = () => {
                         deleteSkill(skill.id);
                       }
                     }}
-                    className="text-red-500 hover:text-red-700 font-medium"
+                    className="text-red-600 font-bold hover:text-red-700 font-medium"
                   >
                     Delete
                   </button>

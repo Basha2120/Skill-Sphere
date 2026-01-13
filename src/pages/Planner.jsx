@@ -44,7 +44,7 @@ const Planner = () => {
             {todaysTasks.map((task) => (
               <div
                 key={task.id}
-                className="flex justify-between items-center bg-blue-50 p-4 rounded-lg shadow"
+                className="flex justify-between items-center bg-blue-200 p-4 rounded-lg shadow"
               >
                 <label className="flex items-center gap-3">
                   <input
@@ -64,7 +64,7 @@ const Planner = () => {
 
                 <button
                   onClick={() => deleteTask(task.id)}
-                  className="text-red-500 hover:text-red-700 text-sm"
+                  className="text-1xl text-red-600 font-bold hover:text-red-900 text-sm"
                 >
                   Delete
                 </button>
@@ -190,14 +190,14 @@ const Planner = () => {
                         setEditingTaskId(task.id);
                         setEditedTitle(task.title);
                       }}
-                      className="text-green-600 hover:underline p-4"
+                      className="text-green-600 font-bold hover:underline p-4"
                     >
                       Edit
                     </button>
 
                     <button
                       onClick={() => deleteTask(task.id)}
-                      className="text-red-500 hover:underline"
+                      className="text-red-600 font-bold hover:underline"
                     >
                       Delete
                     </button>
