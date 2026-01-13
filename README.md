@@ -50,6 +50,11 @@ npm run dev
 - AI-powered learning recommendations
 - Calendar-based task visualization
 
+## Deployment Link
+
+- Live Demo: https://skillsphere-64n3ak49u-basharathullahs-projects.vercel.app
+ 
+
 **👤 Author**
 
 Basharathullah M
