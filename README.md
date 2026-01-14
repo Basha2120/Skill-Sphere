@@ -39,9 +39,9 @@ date-aware planner.
 - Clean component architecture
 
 ## Getting Started
----bash
-npm install
-npm run dev
+
+- npm install
+- npm run dev
 
 ## Future Enhancements
 
