@@ -52,7 +52,7 @@ date-aware planner.
 
 ## Deployment Link
 
-- Live Demo: https://skillsphere-64n3ak49u-basharathullahs-projects.vercel.app
+- Live Demo: https://skillsphere-git-main-basharathullahs-projects.vercel.app?_vercel_share=yxA1UG2L3wbx5lTlcso1SrjeJHLEOJgU
  
 
 **👤 Author**
