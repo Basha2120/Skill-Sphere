@@ -1,8 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    setIsOpen(false);
+    navigate("/login");
+  };
 
   return (
     <>
@@ -10,15 +19,30 @@ const Navbar = () => {
       <nav className="bg-gray-900 text-white px-6 py-4 relative z-50">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* Logo */}
-          <h1 className="text-3xl font-bold">Skill Sphere</h1>
+          <Link to="/" className="text-3xl font-bold">Skill Sphere</Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-6">
+          <div className="hidden md:flex items-center gap-6">
             <Link to="/" className="hover:text-blue-400">Home</Link>
-            <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
-            <Link to="/skills" className="hover:text-blue-400">Skills</Link>
-            <Link to="/planner" className="hover:text-blue-400">Planner</Link>
-            <Link to="/profile" className="hover:text-blue-400">Profile</Link>
+            {user && (
+              <>
+                <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
+                <Link to="/skills" className="hover:text-blue-400">Skills</Link>
+                <Link to="/planner" className="hover:text-blue-400">Planner</Link>
+                <Link to="/profile" className="hover:text-blue-400">Profile</Link>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            )}
+            {!user && (
+              <Link to="/login" className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg transition-colors">
+                Login
+              </Link>
+            )}
           </div>
 
           {/* Mobile Button */}
@@ -59,10 +83,22 @@ const Navbar = () => {
         {/* Links */}
         <div className="flex flex-col gap-6 px-6 py-8 text-lg">
           <Link onClick={() => setIsOpen(false)} to="/" className="hover:text-blue-400">Home</Link>
-          <Link onClick={() => setIsOpen(false)} to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
-          <Link onClick={() => setIsOpen(false)} to="/skills" className="hover:text-blue-400">Skills</Link>
-          <Link onClick={() => setIsOpen(false)} to="/planner" className="hover:text-blue-400">Planner</Link>
-          <Link onClick={() => setIsOpen(false)} to="/profile" className="hover:text-blue-400">Profile</Link>
+          {user ? (
+            <>
+              <Link onClick={() => setIsOpen(false)} to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
+              <Link onClick={() => setIsOpen(false)} to="/skills" className="hover:text-blue-400">Skills</Link>
+              <Link onClick={() => setIsOpen(false)} to="/planner" className="hover:text-blue-400">Planner</Link>
+              <Link onClick={() => setIsOpen(false)} to="/profile" className="hover:text-blue-400">Profile</Link>
+              <button
+                onClick={handleLogout}
+                className="text-left text-red-400 hover:text-red-300 transition-colors"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link onClick={() => setIsOpen(false)} to="/login" className="hover:text-blue-400">Login</Link>
+          )}
         </div>
       </div>
     </>

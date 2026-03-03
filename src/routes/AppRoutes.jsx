@@ -9,7 +9,9 @@ import SkillDetail from "../pages/SkillDetail";
 import AddSkill from "../pages/AddSkill";
 import EditSkill from "../pages/EditSkill";
 import Planner from "../pages/Planner";
-
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -17,14 +19,64 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/profile", element: <Profile /> },
-      { path: "/dashboard", element: <DashBoard /> },
-      { path: "/skills", element: <SkillList /> },
-      { path: "/skills/:id", element: <SkillDetail /> },
-      { path: "/skills/add", element: <AddSkill /> },
-      { path: "/skills/edit/:id", element: <EditSkill /> },
-      { path: "/planner", element: <Planner /> },
-      // Add future routes here like Dashboard, Profile, etc.
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <ProtectedRoute>
+            <DashBoard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/skills",
+        element: (
+          <ProtectedRoute>
+            <SkillList />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/skills/:id",
+        element: (
+          <ProtectedRoute>
+            <SkillDetail />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/skills/add",
+        element: (
+          <ProtectedRoute>
+            <AddSkill />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/skills/edit/:id",
+        element: (
+          <ProtectedRoute>
+            <EditSkill />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/planner",
+        element: (
+          <ProtectedRoute>
+            <Planner />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
@@ -32,3 +84,4 @@ const router = createBrowserRouter([
 const AppRoutes = () => <RouterProvider router={router} />;
 
 export default AppRoutes;
+

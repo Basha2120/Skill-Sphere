@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSkills } from "../context/skillContext";
 
@@ -7,13 +7,42 @@ const EditSkill = () => {
   const navigate = useNavigate();
   const { skills, editSkill } = useSkills();
 
-  const skill = skills.find((s) => s.id === id);
+  const skill = skills.find((s) => s.id.toString() === id);
 
-  const [name, setName] = useState(skill?.name || "");
-  const [category, setCategory] = useState(skill?.category || "");
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [topics, setTopics] = useState([]);
+
+  useEffect(() => {
+    if (skill) {
+      setName(skill.name);
+      setCategory(skill.category);
+      setTopics(skill.topics || []);
+    }
+  }, [skill]);
+
+  const handleTopicNameChange = (index, value) => {
+    const newTopics = [...topics];
+    newTopics[index].name = value;
+    setTopics(newTopics);
+  };
+
+  const toggleTopicCompleted = (index) => {
+    const newTopics = [...topics];
+    newTopics[index].completed = !newTopics[index].completed;
+    setTopics(newTopics);
+  };
+
+  const addTopicField = () => setTopics([...topics, { name: "", completed: false }]);
+
+  const removeTopicField = (index) => {
+    setTopics(topics.filter((_, i) => i !== index));
+    // Implementation note: Backend updateSkill will need to handle deletions.
+    // For now, it updates existing and adds new.
+  };
 
   if (!skill) {
-    return <p className="text-red-500">Skill not found.</p>;
+    return <p className="text-blue-500 p-6">Loading skill details...</p>;
   }
 
   const handleSubmit = (e) => {
@@ -21,7 +50,9 @@ const EditSkill = () => {
 
     if (!name.trim() || !category.trim()) return;
 
-    editSkill(skill.id, name, category);
+    const validTopics = topics.filter(t => t.name.trim() !== "");
+
+    editSkill(skill.id, name, category, validTopics);
     navigate("/skills");
   };
 
@@ -48,6 +79,41 @@ const EditSkill = () => {
             onChange={(e) => setCategory(e.target.value)}
             className="w-full border rounded-lg px-3 py-2"
           />
+        </div>
+
+        <div>
+          <label className="block mb-2 font-medium">Sub-Topics 📚</label>
+          {topics.map((topic, index) => (
+            <div key={index} className="flex items-center gap-2 mb-2">
+              <input
+                type="checkbox"
+                checked={topic.completed}
+                onChange={() => toggleTopicCompleted(index)}
+                className="w-5 h-5 accent-blue-500 cursor-pointer"
+              />
+              <input
+                type="text"
+                value={topic.name}
+                onChange={(e) => handleTopicNameChange(index, e.target.value)}
+                className={`flex-1 border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 ${topic.completed ? "line-through text-gray-400" : ""
+                  }`}
+              />
+              <button
+                type="button"
+                onClick={() => removeTopicField(index)}
+                className="text-red-500 hover:text-red-700 font-bold px-2"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addTopicField}
+            className="text-blue-500 hover:text-blue-700 text-sm font-semibold flex items-center gap-1"
+          >
+            + Add Another Topic
+          </button>
         </div>
 
         <div className="flex justify-between">

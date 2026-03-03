@@ -1,68 +1,85 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import API from "../api/axios";
+import { useAuth } from "./AuthContext";
 
 const TaskContext = createContext();
 
-// Helper to get today's date in YYYY-MM-DD
 const getToday = () => {
   return new Date().toISOString().split("T")[0];
 };
 
-
-
 export const TaskProvider = ({ children }) => {
-  const [tasks, setTasks] = useState(() => {
-    const stored = localStorage.getItem("tasks");
-    return stored ? JSON.parse(stored) : [];
-  });
+  const [tasks, setTasks] = useState([]);
+  const { user } = useAuth();
 
-  // Persist tasks
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+    if (user) {
+      fetchTasks();
+    } else {
+      setTasks([]);
+    }
+  }, [user]);
 
-  
-
-  // ➕ Add task
-  const addTask = (title, date) => {
-    const newTask = {
-      id: Date.now(),
-      title,
-      date,
-      completed: false,
-    };
-
-    setTasks((prev) => [...prev, newTask]);
+  const fetchTasks = async () => {
+    try {
+      const res = await API.get("/tasks");
+      setTasks(res.data);
+    } catch (err) {
+      console.error("Error fetching tasks:", err);
+    }
   };
 
-  // ✏️ Edit task (title or date)
-  const editTask = (taskId, updatedTitle, updatedDate) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              title: updatedTitle,
-              date: updatedDate,
-            }
-          : task
-      )
-    );
+  const addTask = async (title, date) => {
+    try {
+      const res = await API.post("/tasks", { title, date, completed: false });
+      setTasks((prev) => [...prev, res.data]);
+    } catch (err) {
+      console.error("Error adding task:", err);
+    }
   };
 
-  // ✔ Toggle completion
-  const toggleTask = (taskId) => {
-    setTasks((prev) =>
-      prev.map((task) =>
-        task.id === taskId
-          ? { ...task, completed: !task.completed }
-          : task
-      )
-    );
+  const editTask = async (taskId, updatedTitle, updatedDate) => {
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
+
+    try {
+      const res = await API.put(`/tasks/${taskId}`, {
+        ...task,
+        title: updatedTitle,
+        date: updatedDate,
+      });
+      setTasks((prev) =>
+        prev.map((t) => (t.id === taskId ? res.data : t))
+      );
+    } catch (err) {
+      console.error("Error editing task:", err);
+    }
   };
 
-  // 🗑 Delete task
-  const deleteTask = (taskId) => {
-    setTasks((prev) => prev.filter((task) => task.id !== taskId));
+  const toggleTask = async (taskId) => {
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
+
+    try {
+      const res = await API.put(`/tasks/${taskId}`, {
+        ...task,
+        completed: !task.completed,
+      });
+      setTasks((prev) =>
+        prev.map((t) => (t.id === taskId ? res.data : t))
+      );
+    } catch (err) {
+      console.error("Error toggling task:", err);
+    }
+  };
+
+  const deleteTask = async (taskId) => {
+    try {
+      await API.delete(`/tasks/${taskId}`);
+      setTasks((prev) => prev.filter((task) => task.id !== taskId));
+    } catch (err) {
+      console.error("Error deleting task:", err);
+    }
   };
 
   return (
@@ -73,7 +90,7 @@ export const TaskProvider = ({ children }) => {
         editTask,
         toggleTask,
         deleteTask,
-        getToday, // exposed for reuse
+        getToday,
       }}
     >
       {children}
@@ -82,3 +99,4 @@ export const TaskProvider = ({ children }) => {
 };
 
 export const useTasks = () => useContext(TaskContext);
+

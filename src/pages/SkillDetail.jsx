@@ -7,14 +7,22 @@ const SkillDetail = () => {
   const { id } = useParams();
   const { skills, toggleTopic, addTopic, editTopic, deleteTopic } = useSkills();
 
-  const skill = skills.find((s) => s.id === id);
+  const skill = skills.find((s) => s.id.toString() === id);
   const [newTopic, setNewTopic] = useState("");
 
   const [editingTopicId, setEditingTopicId] = useState(null);
   const [editedTopicName, setEditedTopicName] = useState("");
 
   if (!skill) {
-    return <p className="text-red-500">Skill not found.</p>;
+    return (
+      <div className="p-8 text-center">
+        {skills.length === 0 ? (
+          <p className="text-blue-500">Loading skill details...</p>
+        ) : (
+          <p className="text-red-500 font-bold text-xl">Skill Not Found ⚠️</p>
+        )}
+      </div>
+    );
   }
 
   const progress = calculateProgress(skill.topics);
