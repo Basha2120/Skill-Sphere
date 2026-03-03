@@ -37,33 +37,40 @@ const Profile = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* ================= PROFILE HEADER ================= */}
-      <div className="relative mb-8">
-        <div className="h-48 w-full bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl overflow-hidden shadow-lg">
+      <div className="relative mb-10">
+        <div className="min-h-[260px] w-full bg-gradient-to-br from-blue-600 via-indigo-600 to-indigo-700 rounded-3xl overflow-hidden shadow-xl flex items-center px-8 sm:px-12 py-10 relative">
           <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        </div>
 
-        <div className="absolute -bottom-16 left-8 flex items-end space-x-6">
-          <div className="relative">
-            <img
-              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=fff&color=2563eb&size=128&bold=true`}
-              alt="Profile"
-              className="w-32 h-32 rounded-3xl border-4 border-white dark:border-slate-900 shadow-2xl object-cover bg-white"
-            />
-            <div className="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-4 border-white dark:border-slate-900 rounded-full"></div>
-          </div>
+          <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-center space-y-6 sm:space-y-0 sm:space-x-10 w-full text-center sm:text-left">
+            <div className="relative flex-shrink-0">
+              <div className="p-1 rounded-3xl bg-white/20 backdrop-blur-md">
+                <img
+                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=fff&color=2563eb&size=160&bold=true`}
+                  alt="Profile"
+                  className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl shadow-2xl object-cover bg-white"
+                />
+              </div>
+              <div className="absolute bottom-2 right-2 w-7 h-7 bg-green-500 border-4 border-white dark:border-slate-800 rounded-full shadow-lg"></div>
+            </div>
 
-          <div className="pb-4">
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white drop-shadow-sm">
-              {user.name}
-            </h1>
-            <p className="text-blue-600 dark:text-blue-400 font-medium">
-              {profileAddons.role}
-            </p>
+            <div className="flex-1">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white drop-shadow-md tracking-tight">
+                {user.name}
+              </h1>
+              <p className="text-blue-100 font-semibold text-xl mt-2 opacity-95">
+                {profileAddons.role}
+              </p>
+              <div className="mt-6 flex flex-wrap justify-center sm:justify-start gap-4">
+                <span className="flex items-center px-4 py-1.5 bg-white/10 backdrop-blur-md text-white text-sm font-medium rounded-full border border-white/20">
+                  <span className="mr-2">📧</span> {user.email}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-20">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: About */}
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-8">
@@ -92,7 +99,7 @@ const Profile = () => {
                     type="text"
                     value={tempAddons.role}
                     onChange={(e) => setTempAddons({ ...tempAddons, role: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     placeholder="e.g. Software Engineer"
                   />
                 </div>
@@ -104,7 +111,7 @@ const Profile = () => {
                     rows="4"
                     value={tempAddons.bio}
                     onChange={(e) => setTempAddons({ ...tempAddons, bio: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     placeholder="Tell us about your learning journey..."
                   />
                 </div>
