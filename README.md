@@ -52,11 +52,11 @@ date-aware planner.
 
 ## Deployment Link
 
-- Live Demo: https://skillsphere-git-main-basharathullahs-projects.vercel.app?_vercel_share=yxA1UG2L3wbx5lTlcso1SrjeJHLEOJgU
+- Live Demo: https://skillsphere-ten.vercel.app/
  
 
 **👤 Author**
 
 Basharathullah M
 
-Final Year CSE Student | Frontend & Java Developer
+Final Year CSE Student | Java Developer
