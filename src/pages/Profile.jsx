@@ -9,7 +9,11 @@ const Profile = () => {
   // For fields not yet in DB, we use defaults or localStorage enhancements
   const [profileAddons, setProfileAddons] = useState(() => {
     const stored = localStorage.getItem(`profile_addons_${user?.email}`);
-    return stored ? JSON.parse(stored) : { role: "Product Designer & Developer", bio: "Passionate about building intuitive user experiences and learning new technologies." };
+    return stored ? JSON.parse(stored) : {
+      name: user?.name || "User",
+      role: "Product Designer & Developer",
+      bio: "Passionate about building intuitive user experiences and learning new technologies."
+    };
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -45,7 +49,7 @@ const Profile = () => {
             <div className="relative flex-shrink-0">
               <div className="p-1 rounded-3xl bg-white/20 backdrop-blur-md">
                 <img
-                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=fff&color=2563eb&size=160&bold=true`}
+                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(profileAddons.name || user.name)}&background=fff&color=2563eb&size=160&bold=true`}
                   alt="Profile"
                   className="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl shadow-2xl object-cover bg-white"
                 />
@@ -55,7 +59,7 @@ const Profile = () => {
 
             <div className="flex-1">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white drop-shadow-md tracking-tight">
-                {user.name}
+                {profileAddons.name || user.name}
               </h1>
               <p className="text-blue-100 font-semibold text-xl mt-2 opacity-95">
                 {profileAddons.role}
@@ -91,6 +95,18 @@ const Profile = () => {
 
             {isEditing ? (
               <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    value={tempAddons.name}
+                    onChange={(e) => setTempAddons({ ...tempAddons, name: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    placeholder="Enter your name"
+                  />
+                </div>
                 <div>
                   <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                     Professional Role
